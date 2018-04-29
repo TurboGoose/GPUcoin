@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <link href="/static/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+   <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
+   <meta charset="UTF-8">
+   <title>GPUcoin</title>
+</head>
+<body class="p-3 mb-2 bg-dark text-white">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">GPUcoin</a>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="/wallet">WALLET</a>
+          <a class="nav-item nav-link" href="#">TRANSACTIONS</a>
+          <a class="nav-item nav-link" href="#">TOP 10 USERS</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+        <br>
+        <h3>Здесь Вы можете проверить состояние вашего счета:</h3>
+        <br>
+        <form method="get" action="/wallet">
+            <div class="form-group">
+                <textarea placeholder="Введите Ваш VK ID" class="form-control" id="vk_id" name="vk_id" rows="1"></textarea>
+            </div>
+            <button type="submit" class="btn btn-outline-success">Проверить</button>
+            {% if error %}
+                <h2>{{error}}</h2>
+            {% else %}
+                {% if username %}
+                    {% if balance %}
+                        <h2>Баланс пользователя "{{username}}": {{balance}} GPUcoins</h2>
+                    {% else %}
+                        <h2>Кошелек пользователя "{{username}}" пуст.</h2>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>

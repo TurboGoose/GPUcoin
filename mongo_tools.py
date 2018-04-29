@@ -1,4 +1,5 @@
 import pymongo
+import requests
 from datetime import datetime
 
 
@@ -11,9 +12,6 @@ class MongoDataBase:
         if self.coins.find_one({"string": {"$eq": string}}) is None:
             return True
         return False
-
-    def check_coins(self, coin_status):
-        return [(coin, self.check_coin(coin) and status) for coin, status in coin_status]
 
     def register_coin(self, string, user):
         self.coins.insert_one(
@@ -29,3 +27,15 @@ class MongoDataBase:
             if self.check_coin(coin):
                 user = coin.split("-", maxsplit=1)[0]
                 self.register_coin(coin, user)
+
+    def check_coins(self, coin_status):
+        return [(coin, self.check_coin(coin) and status) for coin, status in coin_status]
+
+    def check_user_balance(self, user):
+        try:
+
+            return self.coins.find({"user": {"$eq": user}}).count()
+
+        except Exception as err:
+            print(err)
+            return 0
