@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <link href="/static/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+   <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
+   <meta charset="UTF-8">
+   <title>GPUcoin</title>
+</head>
+<body class="p-3 mb-2 bg-dark text-white">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">GPUcoin</a>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="/wallet">WALLET</a>
+          <a class="nav-item nav-link active" href="/send">SEND</a>
+          <a class="nav-item nav-link" href="#">TOP USERS</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+        <br>
+        <h3>Вы можете перевести свои GPUcoins другому пользователю</h3>
+        <br>
+        <form method="post" action="/send">
+            <div class="form-group">
+                <label for="from">Введите VK ID отправителя :</label>
+                <textarea placeholder="От кого" class="form-control" id="from" name="user_from" rows="1"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="to">Введите VK ID получателя :</label>
+                <textarea placeholder="Кому" class="form-control" id="to" name="user_to" rows="1"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="num">Сколько :</label>
+                <input type="number" name="num_coins" id="num">
+            </div>
+            <button type="submit" class="btn btn-outline-success">Отправить</button>
+        </form>
+        {% if message %}
+            <h2>{{message}}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -12,18 +12,19 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-item nav-link active" href="/wallet">WALLET</a>
-          <a class="nav-item nav-link" href="#">TRANSACTIONS</a>
-          <a class="nav-item nav-link" href="#">TOP 10 USERS</a>
+          <a class="nav-item nav-link" href="/send">SEND</a>
+          <a class="nav-item nav-link" href="#">TOP USERS</a>
         </div>
       </div>
     </nav>
     <div class="container">
         <br>
-        <h3>Здесь Вы можете проверить состояние вашего счета:</h3>
+        <h3>Здесь Вы можете проверить состояние вашего счета</h3>
         <br>
         <form method="get" action="/wallet">
             <div class="form-group">
-                <textarea placeholder="Введите Ваш VK ID" class="form-control" id="vk_id" name="vk_id" rows="1"></textarea>
+                <label for="vk_id">Введите Ваш VK ID :</label>
+                <textarea placeholder="VK ID" class="form-control" id="vk_id" name="vk_id" rows="1"></textarea>
             </div>
             <button type="submit" class="btn btn-outline-success">Проверить</button>
             {% if error %}
@@ -33,7 +34,7 @@
                     {% if balance %}
                         <h2>Баланс пользователя "{{username}}": {{balance}} GPUcoins</h2>
                     {% else %}
-                        <h2>Кошелек пользователя "{{username}}" пуст.</h2>
+                        <h2>Баланс пользователя "{{username}}" пуст.</h2>
                     {% endif %}
                 {% endif %}
             {% endif %}

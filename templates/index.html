@@ -12,18 +12,19 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-item nav-link" href="/wallet">WALLET</a>
-          <a class="nav-item nav-link" href="#">TRANSACTIONS</a>
-          <a class="nav-item nav-link" href="#">TOP 10 USERS</a>
+          <a class="nav-item nav-link" href="/send">SEND</a>
+          <a class="nav-item nav-link" href="#">TOP USERS</a>
         </div>
       </div>
     </nav>
 
     <div class="container">
         <br>
-        <h3>Присылайте строки, хеш которых (в формате md5) начинается с "0000":</h3>
+        <h3>Присылайте строки, хеш которых (в формате md5) начинается с "0000"</h3>
         <br>
         <form method="post" action="/">
             <div class="form-group">
+                <label for="hashes">Введите Ваши хеш-строки :</label>
                 <textarea placeholder="Введите строку" class="form-control" id="hashes" name="hashes" rows="3" cols="5"></textarea>
             </div>
             <button type="submit" class="btn btn-outline-success">Отправить</button>

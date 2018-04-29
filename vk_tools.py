@@ -18,3 +18,7 @@ def get_vk_username(user_id):
 
     except Exception as err:
         print(">>> VK error :", err)
+
+
+def check_vk_user(user_id):
+    return bool(get_vk_username(user_id))
