@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <link href="/static/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+   <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
+   <meta charset="UTF-8">
+   <title>Top Users</title>
+</head>
+<body class="p-3 mb-2 bg-dark text-white">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">GPUcoin</a>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="/wallet">WALLET</a>
+          <a class="nav-item nav-link" href="/send">SEND</a>
+          <a class="nav-item nav-link active" href="/top">TOP USERS</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+        <br>
+        <h3>Самые крупные {{num}} владельцев GPUcoin</h3>
+        <br>
+        {% if top_users %}
+            <ul class="list-group">
+                {% for user, num in top_users %}
+                    <li>
+                        {{user}} &mdash; {{num}}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h4>Список лучших майнеров пока пуст.</h4>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -13,6 +13,9 @@ class MongoDataBase:
             return True
         return False
 
+    def check_coins(self, coin_status):
+        return [(coin, self.check_coin(coin) and status) for coin, status in coin_status]
+
     def register_coin(self, string, user):
         self.coins.insert_one(
             {
@@ -28,14 +31,10 @@ class MongoDataBase:
                 user = coin.split("-", maxsplit=1)[0]
                 self.register_coin(coin, user)
 
-    def check_coins(self, coin_status):
-        return [(coin, self.check_coin(coin) and status) for coin, status in coin_status]
-
     def check_user_balance(self, user):
         try:
             return self.coins.find({"user": {"$eq": user}}).count()
-        except Exception as err:
-            print(">>> User balance error :", err)
+        except:
             return 0
 
     def register_transaction(self, coin, user_from, user_to):
@@ -53,3 +52,8 @@ class MongoDataBase:
         for coin_id in coins_id:
             self.coins.update({"_id": coin_id}, {"$set": {"user": user_to}})
             self.register_transaction(coin_id, user_from, user_to)
+
+    def get_top(self, num=10):
+        users_coins = self.coins.aggregate([{"$group": {"_id": "$user", "total": {"$sum": 1}}}])
+        top = sorted(list(users_coins), key=lambda x: x["total"], reverse=True)[:num]
+        return [(u["_id"], u["total"]) for u in top]

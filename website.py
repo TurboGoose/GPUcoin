@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request
-from hash_tools import check_hash_strings
 from mongo_tools import MongoDataBase
+from hash_tools import check_hash_strings
+from flask import Flask, render_template, request
 from vk_tools import get_vk_username, check_vk_user
 
 
@@ -46,7 +46,7 @@ def wallet():
 @app.route("/send", methods=["GET", "POST"])
 def post():
     message = None
-
+    db.get_top()
     if request.method == "POST":
         user_from = request.form["user_from"].strip()
         user_to = request.form["user_to"].strip()
@@ -55,27 +55,35 @@ def post():
         if user_from and user_to and num_coins:
 
             if not check_vk_user(user_from):
-                message = "Некорректный VK ID отправителя"
+                message = "Некорректный VK ID отправителя."
             elif not check_vk_user(user_to):
-                message = "Некорректный VK ID получателя"
+                message = "Некорректный VK ID получателя."
             else:
 
                 num_coins = int(num_coins)
 
                 if num_coins <= 0:
-                    message = "Некорректная сумма"
+                    message = "Некорректная сумма."
                 elif num_coins > db.check_user_balance(user_from):
-                    message = "Недостаточно средств"
+                    message = "Недостаточно средств."
                 elif user_from == user_to:
-                    message = "Вы успешно перевели криптовалюту сами себе"
+                    message = "Вы успешно перевели криптовалюту сами себе."
                 else:
 
                     db.send_coins(user_from, user_to, num_coins)
-                    message = "Готово"
+                    message = "Готово!"
         else:
-            message = "Вы ввели не все данные"
+            message = "Вы ввели не все данные."
 
     return render_template("send.html", message=message)
+
+
+@app.route("/top")
+def top_10():
+    num = 10
+    top = db.get_top(num)
+    rendered_top = [(get_vk_username(name), total) for name, total in top]
+    return render_template("top.html", top_users=rendered_top, num=num)
 
 
 if __name__ == "__main__":
