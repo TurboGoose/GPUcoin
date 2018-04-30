@@ -1,5 +1,5 @@
 from mongo_tools import MongoDataBase
-from hash_tools import check_hash_strings
+from hash_tools import check_hashes
 from flask import Flask, render_template, request
 from vk_tools import get_vk_username, check_vk_user
 
@@ -13,7 +13,7 @@ def index():
     strings = []
     if request.method == "POST":
         new_strings = request.form["hashes"].strip().splitlines()
-        strings = db.check_coins(check_hash_strings(new_strings))
+        strings = db.check_coins(check_hashes(new_strings))
         db.register_coins([h for h, s in strings if s])
     return render_template("index.html", res=strings)
 

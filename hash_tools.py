@@ -2,18 +2,8 @@ from hashlib import md5
 
 
 def check_hash(hash):
-    return md5(hash.encode("utf8")).hexdigest().startswith("0000")
+    return md5(hash.encode("utf8")).hexdigest().startswith("00000")
 
 
-def check_hash_string(string):
-    try:
-        user, hash_mes = string.split("-", maxsplit=1)
-        if check_hash(hash_mes) and user.isdigit():
-            return True
-        return False
-    except ValueError:
-        return False
-
-
-def check_hash_strings(strings):
-    return [(s, check_hash_string(s)) for s in strings]
+def check_hashes(strings):
+    return [(s, check_hash(s)) for s in strings]
